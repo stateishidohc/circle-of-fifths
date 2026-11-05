@@ -1,6 +1,6 @@
 import type { SpelledNote } from './pitch';
 import { pc } from './pitch';
-import { P4, P5, d5, transpose } from './interval';
+import { A4, P4, P5, d5, transpose } from './interval';
 import type { Key } from './key';
 import { parallelKey, relativeKey } from './key';
 import type { Chord } from './chord';
@@ -35,9 +35,16 @@ export function secondaryDominantOf(target: SpelledNote): Chord {
   return { root: transpose(target, P5), quality: '7' };
 }
 
-/** ドミナント7th の裏コード（субV7。ルートが増4度/減5度先） */
+/**
+ * ドミナント7th の裏コード（subV7。ルートが三全音先）。
+ * 綴りは減5度/増4度のうち臨時記号が簡単な方を選ぶ（例: B♭7 の裏は F♭7 でなく E7。
+ * 同数なら ♭II 表記の慣例に合わせてフラット側）。
+ */
 export function tritoneSubstitute(dominant: Chord): Chord {
-  return { root: transpose(dominant.root, d5), quality: '7' };
+  const flat = transpose(dominant.root, d5);
+  const sharp = transpose(dominant.root, A4);
+  const root = Math.abs(sharp.accidental) < Math.abs(flat.accidental) ? sharp : flat;
+  return { root, quality: '7' };
 }
 
 export interface LabeledChord {

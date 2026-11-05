@@ -57,6 +57,10 @@ describe('tritoneSubstitute（裏コード）', () => {
     const sub = tritoneSubstitute({ root: parseNote('C#')!, quality: '7' });
     expect(chordName(sub)).toBe('G7');
   });
+  it('E♭ メジャーの V7（B♭7）の裏は F♭7 ではなく E7', () => {
+    const sub = tritoneSubstitute({ root: parseNote('Bb')!, quality: '7' });
+    expect(chordName(sub)).toBe('E7');
+  });
 });
 
 describe('borrowedChords（借用和音）', () => {
