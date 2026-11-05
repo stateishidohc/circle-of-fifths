@@ -1,0 +1,272 @@
+/* 配色はオリジナル。機能色は色覚多様性に配慮した Okabe–Ito パレットを基に、
+   色だけに頼らず T/SD/D のラベルを常に併記する */
+:root {
+  --bg: #f6f5f1;
+  --surface: #ffffff;
+  --text: #2b2d33;
+  --text-sub: #6b6e78;
+  --line: #d9d7d0;
+  --sector: #eceae4;
+  --sector-line: #f6f5f1;
+  --accent: #3a5a8c;
+  --func-t: #0072b2;
+  --func-sd: #009e73;
+  --func-d: #d55e00;
+  --func-text: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b1f2a;
+    --surface: #242936;
+    --text: #e8e9ed;
+    --text-sub: #9aa0ad;
+    --line: #3a4050;
+    --sector: #2d3342;
+    --sector-line: #1b1f2a;
+    --accent: #8fb0e0;
+    --func-t: #4ba3dd;
+    --func-sd: #2fbf96;
+    --func-d: #e98a3c;
+    --func-text: #10131a;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 8px 16px calc(24px + env(safe-area-inset-bottom));
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+}
+
+.app-header h1 {
+  font-size: 1.15rem;
+  margin: 0;
+  letter-spacing: 0.08em;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---- 5度圏 ---- */
+.circle-of-fifths {
+  width: min(92vw, 390px);
+  height: auto;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.cof-bg {
+  fill: var(--surface);
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.cof-sector path {
+  fill: var(--sector);
+  stroke: var(--sector-line);
+  stroke-width: 2;
+  cursor: pointer;
+  transition: fill 0.2s;
+}
+
+.cof-sector.f-T path {
+  fill: color-mix(in srgb, var(--func-t) 38%, var(--surface));
+}
+.cof-sector.f-SD path {
+  fill: color-mix(in srgb, var(--func-sd) 38%, var(--surface));
+}
+.cof-sector.f-D path {
+  fill: color-mix(in srgb, var(--func-d) 38%, var(--surface));
+}
+
+.cof-sector.is-selected path {
+  stroke: var(--accent);
+  stroke-width: 3;
+}
+
+.cof-sector:focus-visible {
+  outline: none;
+}
+.cof-sector:focus-visible path {
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-dasharray: 4 3;
+}
+
+.circle-of-fifths text {
+  fill: var(--text);
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+.cof-label-major {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.cof-label-minor {
+  font-size: 13px;
+}
+
+.cof-sig {
+  font-size: 10px;
+  fill: var(--text-sub);
+  font-weight: 400;
+}
+
+.cof-pointer {
+  fill: var(--accent);
+}
+
+.cof-center-key {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.cof-center-mode {
+  font-size: 13px;
+  fill: var(--text-sub);
+}
+
+.cof-center-sig {
+  font-size: 12px;
+  fill: var(--text-sub);
+}
+
+/* ---- コントロール ---- */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.segmented {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.segmented button {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  min-height: 44px;
+  min-width: 64px;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+.segmented button + button {
+  border-left: 1px solid var(--line);
+}
+
+.segmented button.is-active {
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+/* ---- ダイアトニックコード表 ---- */
+.diatonic-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+
+.diatonic-table th,
+.diatonic-table td {
+  padding: 9px 10px;
+  text-align: left;
+  border-top: 1px solid var(--line);
+}
+
+.diatonic-table thead th {
+  border-top: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  background: color-mix(in srgb, var(--line) 30%, var(--surface));
+}
+
+.dt-roman {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.dt-chord {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.dt-notes {
+  color: var(--text-sub);
+  letter-spacing: 0.04em;
+}
+
+.func-badge {
+  display: inline-block;
+  min-width: 2.4em;
+  padding: 2px 6px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--func-text);
+}
+
+.func-badge.f-T {
+  background: var(--func-t);
+}
+.func-badge.f-SD {
+  background: var(--func-sd);
+}
+.func-badge.f-D {
+  background: var(--func-d);
+}
+
+.legend {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+}
