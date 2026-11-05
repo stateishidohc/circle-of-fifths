@@ -69,6 +69,21 @@ test('スケール再生ボタンで再生が始まり停止できる', async ({
   await expect(stop).not.toBeVisible();
 });
 
+test('コード選択でボイシング一覧が表示される', async ({ page }) => {
+  await page.goto('/?key=C&mode=major&chords=7th&chord=5');
+  await expect(page.getByRole('heading', { name: /ボイシング: G7/ })).toBeVisible();
+  await page.getByRole('button', { name: /さらに表示/ }).click();
+  await expect(page.getByText('320001')).toBeVisible();
+  // ルート弦で絞り込み
+  await page.getByLabel('ルート弦').selectOption('5');
+  const diagrams = page.locator('.chord-diagram');
+  await expect(diagrams.first()).toBeVisible();
+  // シェルで絞り込んでも結果がある
+  await page.getByLabel('タイプ').selectOption('shell');
+  await page.getByLabel('ルート弦').selectOption('0');
+  await expect(diagrams.first()).toBeVisible();
+});
+
 test('マイナーキーでスケール種別を切り替えられる', async ({ page }) => {
   await page.goto('/?key=A&mode=minor&chords=7th');
   const table = page.getByRole('table', { name: 'ダイアトニックコード表' });

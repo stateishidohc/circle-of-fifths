@@ -575,3 +575,140 @@ main {
   font-size: 0.78rem;
   color: var(--text-sub);
 }
+
+/* ---- ボイシングパネル ---- */
+.voicing-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.voicing-panel h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.voicing-count {
+  margin-left: 8px;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--text-sub);
+}
+
+.voicing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  gap: 10px;
+  width: 100%;
+}
+
+.chord-diagram {
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 8px 4px 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font: inherit;
+}
+
+.chord-diagram.is-selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1.5px var(--accent);
+}
+
+.cd-string {
+  stroke: var(--text-sub);
+  stroke-width: 1;
+}
+
+.cd-fret {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.cd-nut {
+  stroke: var(--text);
+  stroke-width: 3.5;
+}
+
+.cd-pos {
+  fill: var(--text-sub);
+  font-size: 9px;
+  dominant-baseline: middle;
+}
+
+.cd-barre {
+  fill: color-mix(in srgb, var(--accent) 35%, var(--surface));
+  stroke: var(--accent);
+  stroke-width: 1;
+}
+
+.cd-mute {
+  fill: var(--text-sub);
+  font-size: 11px;
+  text-anchor: middle;
+}
+
+.cd-open {
+  fill: none;
+  stroke: var(--text-sub);
+  stroke-width: 1.4;
+}
+
+.cd-dot circle {
+  fill: var(--surface);
+  stroke: var(--text);
+  stroke-width: 1.3;
+}
+
+.cd-dot text {
+  fill: var(--text);
+  font-size: 7.5px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.cd-dot.is-root circle {
+  fill: var(--accent);
+  stroke: var(--accent);
+}
+
+.cd-dot.is-root text {
+  fill: var(--bg);
+}
+
+.cd-caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  line-height: 1.3;
+}
+
+.cd-shape {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.cd-tags {
+  font-size: 0.68rem;
+  color: var(--text-sub);
+  min-height: 1em;
+}
+
+.cd-meta {
+  font-size: 0.68rem;
+  color: var(--text-sub);
+}

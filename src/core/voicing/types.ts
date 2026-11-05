@@ -38,6 +38,8 @@ export interface VoicingOptions {
   /** 検索するフレット範囲 */
   minFret?: number;
   maxFret?: number;
+  /** 返す最大件数（難易度順）。既定 120 */
+  maxResults?: number;
 }
 
 export interface VoicingGenerator {

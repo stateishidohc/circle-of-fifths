@@ -20,6 +20,7 @@ import { FretboardView } from './ui/components/FretboardView';
 import type { ToneHighlight } from './ui/components/FretboardView';
 import { KeyboardView } from './ui/components/KeyboardView';
 import { HarmonyPanel } from './ui/components/HarmonyPanel';
+import { VoicingPanel } from './ui/components/VoicingPanel';
 import type { AppState } from './state/urlState';
 import { FRET_CHOICES, effectiveScaleType, searchFromState, stateFromSearch } from './state/urlState';
 
@@ -348,6 +349,8 @@ export default function App() {
           />
           <KeyboardView highlights={highlights} />
         </section>
+
+        {displayedChord && <VoicingPanel chord={displayedChord} notation={state.notation} />}
 
         <HarmonyPanel
           musicKey={state.key}
