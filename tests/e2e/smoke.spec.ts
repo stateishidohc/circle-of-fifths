@@ -41,6 +41,34 @@ test('スケール選択とポジション絞り込みが URL に反映される
   await expect(page.getByRole('img', { name: '鍵盤（2オクターブ）' })).toBeVisible();
 });
 
+test('近親調チップでキーを切り替えられる', async ({ page }) => {
+  await page.goto('/?key=C&mode=major');
+  await page.getByRole('button', { name: '平行調 Am に切り替え' }).click();
+  await expect(page).toHaveURL(/key=A&mode=minor/);
+  const table = page.getByRole('table', { name: 'ダイアトニックコード表' });
+  await expect(table).toContainText('Bdim');
+});
+
+test('セカンダリードミナントのプレビューとトライトーン・アボイド表示', async ({ page }) => {
+  await page.goto('/?key=C&mode=major');
+  await page.getByRole('button', { name: /V7\/II/ }).first().click();
+  await expect(page.getByRole('heading', { name: /コードトーン: V7\/II（A7）/ })).toBeVisible();
+  await expect(page.getByText(/トライトーン: C♯–G/)).toBeVisible();
+  // ダイアトニック表のアボイド列（Imaj7 の行に F）
+  await page.goto('/?key=C&mode=major&chords=7th');
+  const row = page.getByRole('row', { name: /Imaj7/ });
+  await expect(row).toContainText('F');
+});
+
+test('スケール再生ボタンで再生が始まり停止できる', async ({ page }) => {
+  await page.goto('/?key=C&mode=major');
+  await page.getByRole('button', { name: '♪ スケール再生（上行・下行）' }).click();
+  const stop = page.getByRole('button', { name: '■ 停止' });
+  await expect(stop).toBeVisible();
+  await stop.click();
+  await expect(stop).not.toBeVisible();
+});
+
 test('マイナーキーでスケール種別を切り替えられる', async ({ page }) => {
   await page.goto('/?key=A&mode=minor&chords=7th');
   const table = page.getByRole('table', { name: 'ダイアトニックコード表' });

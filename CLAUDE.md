@@ -31,6 +31,8 @@ npm run build      # tsc -b && vite build
 - dim トライアドのサフィックスは `dim`、セブンスは `m7♭5` / `dim7`。
 - 機能: 長調 [T, SD, T, SD, D, T, D] / 短調 [T, SD, T, SD, D, SD, D]。
 - 音名は英語表記が既定。ドレミ表記はオプション（`notation` 設定）。
+- アボイドノートは「コードトーンの半音上にあるスケール音」で機械判定（`harmony.ts`）。
+  この定義では IIm7 と IVmaj7 はアボイドなし（IIm7 の6度をアボイドとする流派もある）。
 
 ## URL 同期
 

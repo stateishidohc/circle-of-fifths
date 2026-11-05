@@ -1,7 +1,9 @@
 import type { Key } from '../../core/key';
 import type { MinorVariant } from '../../core/diatonic';
-import { diatonicChords } from '../../core/diatonic';
+import { diatonicChords, diatonicScaleType } from '../../core/diatonic';
 import { chordName } from '../../core/chord';
+import { avoidNotes } from '../../core/harmony';
+import { scaleNotes } from '../../core/scale';
 import type { Notation } from '../../core/pitch';
 import { noteName } from '../../core/pitch';
 
@@ -26,6 +28,7 @@ export function DiatonicTable({
   onSelectChord,
 }: Props) {
   const rows = diatonicChords(musicKey, { seventh: chords === '7th', minorVariant });
+  const keyScale = scaleNotes(musicKey.tonic, diatonicScaleType(musicKey.mode, minorVariant));
   return (
     <table className="diatonic-table" aria-label="ダイアトニックコード表">
       <thead>
@@ -34,6 +37,9 @@ export function DiatonicTable({
           <th scope="col">コード</th>
           <th scope="col">構成音</th>
           <th scope="col">機能</th>
+          <th scope="col">
+            <abbr title="アボイドノート">回避</abbr>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -58,6 +64,11 @@ export function DiatonicTable({
                 <span className={`func-badge f-${row.func}`} title={FUNC_LABEL[row.func]}>
                   {row.func}
                 </span>
+              </td>
+              <td className="dt-avoid">
+                {avoidNotes(row.chord, keyScale)
+                  .map((n) => noteName(n, notation))
+                  .join(' ') || '—'}
               </td>
             </tr>
           );

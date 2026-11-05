@@ -74,6 +74,11 @@ const MINOR_SCALE: Record<MinorVariant, ScaleType> = {
   melodic: 'melodicMinor',
 };
 
+/** キー＋マイナーバリアントに対応するダイアトニックの元スケール */
+export function diatonicScaleType(mode: Key['mode'], minorVariant: MinorVariant): ScaleType {
+  return mode === 'major' ? 'major' : MINOR_SCALE[minorVariant];
+}
+
 /** キーのダイアトニックコード（7つ）を返す */
 export function diatonicChords(key: Key, options: DiatonicOptions): DiatonicChord[] {
   const scaleType: ScaleType = key.mode === 'major' ? 'major' : MINOR_SCALE[options.minorVariant];

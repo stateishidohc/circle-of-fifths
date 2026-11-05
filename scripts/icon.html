@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- PWA アイコン生成用。scripts/make-icons の手順で Playwright により PNG 化する -->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <svg style="width: 100vw; height: 100vh; display: block" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <rect width="512" height="512" fill="#1b1f2a" />
+      <g transform="translate(256 256)">
+        <!-- 5度圏モチーフ: 12セクターのリング。上の扇形（IV-I-V）を機能色で -->
+        <g>
+          <circle r="150" fill="none" stroke="#3a4050" stroke-width="58" />
+          <g stroke="#1b1f2a" stroke-width="8">
+            <path d="M -39 -146 A 151 151 0 0 1 39 -146 L 29 -108 A 112 112 0 0 0 -29 -108 Z" fill="#009e73" transform="rotate(-30)" />
+            <path d="M -39 -146 A 151 151 0 0 1 39 -146 L 29 -108 A 112 112 0 0 0 -29 -108 Z" fill="#4ba3dd" />
+            <path d="M -39 -146 A 151 151 0 0 1 39 -146 L 29 -108 A 112 112 0 0 0 -29 -108 Z" fill="#e69f00" transform="rotate(30)" />
+          </g>
+          <!-- 残りのセクター境界 -->
+          <g stroke="#2d3342" stroke-width="7">
+            <line x1="0" y1="92" x2="0" y2="180" transform="rotate(90)" />
+            <line x1="0" y1="92" x2="0" y2="180" transform="rotate(120)" />
+            <line x1="0" y1="92" x2="0" y2="180" transform="rotate(150)" />
+            <line x1="0" y1="92" x2="0" y2="180" transform="rotate(180)" />
+            <line x1="0" y1="92" x2="0" y2="180" transform="rotate(210)" />
+            <line x1="0" y1="92" x2="0" y2="180" transform="rotate(240)" />
+            <line x1="0" y1="92" x2="0" y2="180" transform="rotate(270)" />
+          </g>
+          <circle r="86" fill="#242936" />
+          <text x="0" y="8" text-anchor="middle" dominant-baseline="middle"
+            font-family="system-ui, sans-serif" font-size="88" font-weight="700" fill="#e8e9ed">5°</text>
+        </g>
+      </g>
+    </svg>
+  </body>
+</html>

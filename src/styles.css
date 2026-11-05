@@ -461,3 +461,117 @@ main {
 .kb-note.on-black text {
   font-size: 8.5px;
 }
+
+/* ---- アボイド列 ---- */
+.dt-avoid {
+  color: var(--text-sub);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+/* ---- 再生・コード情報 ---- */
+.chord-info {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.82rem;
+}
+
+.info-chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 40%, var(--surface));
+  color: var(--text);
+}
+
+.info-chip.info-tritone {
+  background: color-mix(in srgb, var(--func-d) 22%, var(--surface));
+}
+
+.play-button {
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  min-height: 44px;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+.play-button:active {
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface));
+}
+
+.play-button.is-stop {
+  color: var(--func-d);
+  border-color: var(--func-d);
+}
+
+/* ---- 応用理論パネル ---- */
+.harmony-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.harmony-panel h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.harmony-group h3 {
+  margin: 4px 0 6px;
+  font-size: 0.85rem;
+  color: var(--text-sub);
+  font-weight: 600;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  min-height: 44px;
+  padding: 4px 12px;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.25;
+}
+
+.chip:active {
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface));
+}
+
+.chip-sub {
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: var(--text-sub);
+}
+
+.harmony-note {
+  margin: 2px 0 0;
+  font-size: 0.78rem;
+  color: var(--text-sub);
+}
