@@ -24,12 +24,12 @@ npm run build      # tsc -b && vite build
 - Phase 4（ボイシング）拡張のため、`Chord`/`ChordTone`/`Tuning`/`fretboard.ts` の型は
   `src/core/voicing/types.ts` と互換に保つこと。壊す変更をするときは SPEC 5章 Phase 4 を確認。
 
-## 表記の規約（オーナー確認前の暫定デフォルト。変える場合は core の定数を変更）
+## 表記の規約（オーナー確認済み 2026-11-05。変える場合は core の定数を変更）
 
 - ハーフディミニッシュは **m7♭5** 表記（IIm7♭5。ø は使わない）。
 - 短調のディグリーはメジャースケール基準の相対表記（Im, IIm♭5(dim), ♭III, IVm, Vm, ♭VI, ♭VII）。
 - dim トライアドのサフィックスは `dim`、セブンスは `m7♭5` / `dim7`。
-- 機能: 長調 [T, SD, T, SD, D, T, D] / 短調 [T, SD, T, SD, D, SD, D]（流派差あり、要確認）。
+- 機能: 長調 [T, SD, T, SD, D, T, D] / 短調 [T, SD, T, SD, D, SD, D]。
 - 音名は英語表記が既定。ドレミ表記はオプション（`notation` 設定）。
 
 ## URL 同期
