@@ -1,7 +1,7 @@
 import type { SpelledNote } from './pitch';
 import { noteName, parseNote, type Notation } from './pitch';
 import type { Interval } from './interval';
-import { A5, M3, M7, M9, P1, P4, P5, d5, d7, m3, m7, transpose } from './interval';
+import { A5, M3, M7, M9, P1, P4, P5, d5, d7, intervalLabel, m3, m7, transpose } from './interval';
 
 /** コード品質。Phase 4 のボイシング生成でも使うため拡張可能にしておく */
 export type ChordQuality =
@@ -35,6 +35,8 @@ export interface ChordTone {
   note: SpelledNote;
   role: ChordRole;
   essential: boolean;
+  /** 度数表示ラベル（R, ♭3, ♭5, ♭7 …） */
+  label: string;
 }
 
 interface ToneRecipe {
@@ -72,6 +74,7 @@ export function chordTones(chord: Chord): ChordTone[] {
     note: transpose(chord.root, r.interval),
     role: r.role,
     essential: r.essential,
+    label: intervalLabel(r.interval),
   }));
 }
 

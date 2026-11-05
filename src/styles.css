@@ -270,3 +270,194 @@ main {
   font-size: 0.8rem;
   color: var(--text-sub);
 }
+
+/* ---- コード表の選択 ---- */
+.dt-chord-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  padding: 6px 10px;
+  margin: -6px -10px;
+  min-height: 44px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.diatonic-table tr.is-selected td {
+  background: color-mix(in srgb, var(--accent) 16%, var(--surface));
+}
+
+.diatonic-table tr.is-selected .dt-chord-btn {
+  color: var(--accent);
+}
+
+/* ---- 指板・鍵盤セクション ---- */
+.board-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.board-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.board-header h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.text-button {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.85rem;
+  min-height: 44px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.board-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-sub);
+}
+
+.field {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.field select {
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  min-height: 38px;
+  padding: 0 6px;
+}
+
+.field.checkbox {
+  gap: 4px;
+}
+
+.field.checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+/* ---- 指板 ---- */
+.fretboard-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 6px 4px;
+}
+
+.fb-nut {
+  stroke: var(--text);
+  stroke-width: 5;
+}
+
+.fb-fret {
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+
+.fb-string {
+  stroke: var(--text-sub);
+}
+
+.fb-inlay {
+  fill: color-mix(in srgb, var(--text-sub) 35%, var(--surface));
+}
+
+.fb-window {
+  fill: color-mix(in srgb, var(--accent) 12%, transparent);
+  stroke: color-mix(in srgb, var(--accent) 45%, transparent);
+  stroke-width: 1.5;
+}
+
+.fb-fret-number {
+  fill: var(--text-sub);
+  font-size: 10px;
+  text-anchor: middle;
+}
+
+.fb-note circle {
+  fill: var(--surface);
+  stroke: var(--text-sub);
+  stroke-width: 1.3;
+}
+
+.fb-note text,
+.kb-note text {
+  fill: var(--text);
+  font-size: 9.5px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.fb-note.is-root circle,
+.kb-note.is-root circle {
+  fill: var(--accent);
+  stroke: var(--accent);
+}
+
+.fb-note.is-root text,
+.kb-note.is-root text {
+  fill: var(--bg);
+}
+
+/* ---- 鍵盤 ---- */
+.keyboard {
+  width: min(100%, 460px);
+  height: auto;
+}
+
+.kb-white {
+  fill: var(--surface);
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.kb-black {
+  fill: color-mix(in srgb, var(--text) 82%, var(--surface));
+}
+
+.kb-note circle {
+  fill: var(--surface);
+  stroke: var(--text-sub);
+  stroke-width: 1.2;
+}
+
+.kb-note.on-black circle {
+  fill: var(--bg);
+}
+
+.kb-note.on-black text {
+  font-size: 8.5px;
+}

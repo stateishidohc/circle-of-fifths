@@ -10,11 +10,21 @@ interface Props {
   chords: 'triad' | '7th';
   minorVariant: MinorVariant;
   notation: Notation;
+  /** 選択中のコード（degree 1-7）。タップでトグル */
+  selectedDegree: number | null;
+  onSelectChord: (degree: number | null) => void;
 }
 
 const FUNC_LABEL = { T: 'トニック', SD: 'サブドミナント', D: 'ドミナント' } as const;
 
-export function DiatonicTable({ musicKey, chords, minorVariant, notation }: Props) {
+export function DiatonicTable({
+  musicKey,
+  chords,
+  minorVariant,
+  notation,
+  selectedDegree,
+  onSelectChord,
+}: Props) {
   const rows = diatonicChords(musicKey, { seventh: chords === '7th', minorVariant });
   return (
     <table className="diatonic-table" aria-label="ダイアトニックコード表">
@@ -27,18 +37,31 @@ export function DiatonicTable({ musicKey, chords, minorVariant, notation }: Prop
         </tr>
       </thead>
       <tbody>
-        {rows.map((row) => (
-          <tr key={row.degree}>
-            <td className="dt-roman">{row.roman}</td>
-            <td className="dt-chord">{chordName(row.chord, notation)}</td>
-            <td className="dt-notes">{row.notes.map((n) => noteName(n, notation)).join(' ')}</td>
-            <td>
-              <span className={`func-badge f-${row.func}`} title={FUNC_LABEL[row.func]}>
-                {row.func}
-              </span>
-            </td>
-          </tr>
-        ))}
+        {rows.map((row) => {
+          const selected = row.degree === selectedDegree;
+          return (
+            <tr key={row.degree} className={selected ? 'is-selected' : ''}>
+              <td className="dt-roman">{row.roman}</td>
+              <td className="dt-chord">
+                <button
+                  type="button"
+                  className="dt-chord-btn"
+                  aria-pressed={selected}
+                  aria-label={`${chordName(row.chord, notation)} を指板と鍵盤に表示`}
+                  onClick={() => onSelectChord(selected ? null : row.degree)}
+                >
+                  {chordName(row.chord, notation)}
+                </button>
+              </td>
+              <td className="dt-notes">{row.notes.map((n) => noteName(n, notation)).join(' ')}</td>
+              <td>
+                <span className={`func-badge f-${row.func}`} title={FUNC_LABEL[row.func]}>
+                  {row.func}
+                </span>
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

@@ -34,8 +34,10 @@ npm run build      # tsc -b && vite build
 
 ## URL 同期
 
-`?key=Eb&mode=minor&view=diatonic&chords=7th&minor=harmonic` の形。
-`key` は ASCII（`#`/`b`）。状態は `src/state/urlState.ts` で一元管理。
+`?key=Eb&mode=minor&view=diatonic&chords=7th&minor=harmonic&scale=blues&labels=degree&lefty=1&frets=12&pos=E&chord=5`
+の形。`key` は ASCII（`#`/`b`）。既定値のパラメータは省略される。
+状態は `src/state/urlState.ts` で一元管理（レッスン記事からのリンク用の公開 I/F なので
+パラメータ名の変更には互換性注意）。
 
 ## テスト
 

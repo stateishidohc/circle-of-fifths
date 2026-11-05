@@ -49,3 +49,29 @@ export function transpose(note: SpelledNote, interval: Interval): SpelledNote {
 export function semitonesBetween(a: SpelledNote, b: SpelledNote): number {
   return (pc(b) - pc(a) + 12) % 12;
 }
+
+/** 各度数のメジャースケール基準の半音数（度数表示ラベルの基準） */
+const MAJOR_SEMITONES: Record<number, number> = {
+  1: 0,
+  2: 2,
+  3: 4,
+  4: 5,
+  5: 7,
+  6: 9,
+  7: 11,
+  8: 12,
+  9: 14,
+  10: 16,
+  11: 17,
+  13: 21,
+};
+
+/** 度数表示用ラベル（R, 2, ♭3, ♯4, ♭5, ♭7 …）。指板・鍵盤の度数表示で使う */
+export function intervalLabel(interval: Interval): string {
+  if (interval.degree === 1 || interval.degree === 8) return 'R';
+  const ref = MAJOR_SEMITONES[interval.degree];
+  if (ref === undefined) throw new Error(`intervalLabel: 未対応の度数 ${interval.degree}`);
+  const diff = interval.semitones - ref;
+  const prefix = diff === 0 ? '' : diff > 0 ? '♯'.repeat(diff) : '♭'.repeat(-diff);
+  return prefix + interval.degree;
+}
