@@ -21,6 +21,7 @@ import type { ToneHighlight } from './ui/components/FretboardView';
 import { KeyboardView } from './ui/components/KeyboardView';
 import { HarmonyPanel } from './ui/components/HarmonyPanel';
 import { VoicingPanel } from './ui/components/VoicingPanel';
+import { GuideModal } from './ui/components/GuideModal';
 import type { AppState } from './state/urlState';
 import { FRET_CHOICES, effectiveScaleType, searchFromState, stateFromSearch } from './state/urlState';
 
@@ -56,6 +57,7 @@ export default function App() {
   const [preview, setPreview] = useState<{ label: string; chord: Chord } | null>(null);
   const [bpm, setBpm] = useState(100);
   const [playing, setPlaying] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(false);
   const playTimer = useRef<number | null>(null);
 
   // 状態 → URL（共有・再現用）
@@ -93,6 +95,7 @@ export default function App() {
         pc: pc(t.note),
         text: toneText(t.note, t.label),
         isRoot: t.role === 'R',
+        role: t.role,
       }))
     : scaleTones(state.key.tonic, scaleType).map((t) => ({
         pc: pc(t.note),
@@ -148,6 +151,9 @@ export default function App() {
     <div className="app">
       <header className="app-header">
         <h1>5度圏</h1>
+        <button type="button" className="guide-button" onClick={() => setGuideOpen(true)}>
+          使い方
+        </button>
         <Segmented
           label="音名表記"
           value={state.notation}
@@ -214,6 +220,17 @@ export default function App() {
               </button>
             )}
           </div>
+
+          {displayedChord && (
+            <p className="role-legend" aria-label="構成音の色分け">
+              <span className="role-chip role-R">R ルート</span>
+              <span className="role-chip role-3">3度</span>
+              <span className="role-chip role-5">5度</span>
+              {chordTones(displayedChord).some((t) => t.role === '7') && (
+                <span className="role-chip role-7">7度</span>
+              )}
+            </p>
+          )}
 
           {displayedChord && (
             <p className="chord-info">
@@ -351,6 +368,8 @@ export default function App() {
         </section>
 
         {displayedChord && <VoicingPanel chord={displayedChord} notation={state.notation} />}
+
+        <GuideModal open={guideOpen} onClose={() => setGuideOpen(false)} />
 
         <HarmonyPanel
           musicKey={state.key}

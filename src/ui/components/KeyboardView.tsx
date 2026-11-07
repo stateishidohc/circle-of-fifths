@@ -1,4 +1,5 @@
 import type { PitchClass } from '../../core/pitch';
+import { roleClass } from '../toneRoles';
 import type { ToneHighlight } from './FretboardView';
 
 interface Props {
@@ -44,7 +45,7 @@ export function KeyboardView({ highlights }: Props) {
             <g key={`${o}-${pc}`}>
               <rect className="kb-white" x={x} y="1" width={WK_W} height={WK_H} rx="3" />
               {h && (
-                <g className={`kb-note ${h.isRoot ? 'is-root' : ''}`}>
+                <g className={`kb-note ${roleClass(h.role)} ${h.isRoot ? 'is-root' : ''}`}>
                   <circle cx={x + WK_W / 2} cy={WK_H - 15} r="10" />
                   <text x={x + WK_W / 2} y={WK_H - 15}>
                     {h.text}
@@ -63,7 +64,7 @@ export function KeyboardView({ highlights }: Props) {
             <g key={`${o}-${pc}`}>
               <rect className="kb-black" x={x} y="1" width={BK_W} height={BK_H} rx="2.5" />
               {h && (
-                <g className={`kb-note on-black ${h.isRoot ? 'is-root' : ''}`}>
+                <g className={`kb-note on-black ${roleClass(h.role)} ${h.isRoot ? 'is-root' : ''}`}>
                   <circle cx={x + BK_W / 2} cy={BK_H - 12} r="8.5" />
                   <text x={x + BK_W / 2} y={BK_H - 12}>
                     {h.text}

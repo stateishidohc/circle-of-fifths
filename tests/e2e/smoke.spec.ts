@@ -72,16 +72,29 @@ test('スケール再生ボタンで再生が始まり停止できる', async ({
 test('コード選択でボイシング一覧が表示される', async ({ page }) => {
   await page.goto('/?key=C&mode=major&chords=7th&chord=5');
   await expect(page.getByRole('heading', { name: /ボイシング: G7/ })).toBeVisible();
+  // 既定はトライアドタブ（転回形ラベル付き）
+  await expect(page.getByText('基本形').first()).toBeVisible();
+  await expect(page.getByText('第1転回形').first()).toBeVisible();
+  await page.getByLabel('弦セット').selectOption('3');
+  await expect(page.locator('.chord-diagram').first()).toBeVisible();
+  // コードフォームタブ
+  await page.getByRole('radio', { name: 'コードフォーム' }).click();
   await page.getByRole('button', { name: /さらに表示/ }).click();
   await expect(page.getByText('320001')).toBeVisible();
-  // ルート弦で絞り込み
-  await page.getByLabel('ルート弦').selectOption('5');
-  const diagrams = page.locator('.chord-diagram');
-  await expect(diagrams.first()).toBeVisible();
-  // シェルで絞り込んでも結果がある
   await page.getByLabel('タイプ').selectOption('shell');
-  await page.getByLabel('ルート弦').selectOption('0');
-  await expect(diagrams.first()).toBeVisible();
+  await expect(page.locator('.chord-diagram').first()).toBeVisible();
+});
+
+test('使い方ガイドが開閉できる', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: '使い方' }).click();
+  const dialog = page.getByRole('dialog', { name: '使い方ガイド' });
+  await expect(dialog).toBeVisible();
+  await expect(dialog).toContainText('5度圏とは');
+  await expect(dialog).toContainText('第1転回形');
+  await expect(dialog).toContainText('ドロップ2');
+  await dialog.getByRole('button', { name: '閉じる ✕' }).click();
+  await expect(dialog).not.toBeVisible();
 });
 
 test('マイナーキーでスケール種別を切り替えられる', async ({ page }) => {

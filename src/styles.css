@@ -13,6 +13,12 @@
   --func-sd: #009e73;
   --func-d: #d55e00;
   --func-text: #ffffff;
+  /* 構成音の役割色（R はアクセント色） */
+  --role-3: #e69f00;
+  --role-5: #56b4e9;
+  --role-7: #cc79a7;
+  --role-ext: #8d99ae;
+  --role-text: #1b1f2a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -711,4 +717,165 @@ main {
 .cd-meta {
   font-size: 0.68rem;
   color: var(--text-sub);
+}
+
+/* ---- 構成音の役割色（R/3/5/7） ---- */
+.fb-note.role-3 circle,
+.kb-note.role-3 circle,
+.cd-dot.role-3 circle {
+  fill: var(--role-3);
+  stroke: var(--role-3);
+}
+
+.fb-note.role-5 circle,
+.kb-note.role-5 circle,
+.cd-dot.role-5 circle {
+  fill: var(--role-5);
+  stroke: var(--role-5);
+}
+
+.fb-note.role-7 circle,
+.kb-note.role-7 circle,
+.cd-dot.role-7 circle {
+  fill: var(--role-7);
+  stroke: var(--role-7);
+}
+
+.fb-note.role-ext circle,
+.kb-note.role-ext circle,
+.cd-dot.role-ext circle {
+  fill: var(--role-ext);
+  stroke: var(--role-ext);
+}
+
+.fb-note.role-3 text,
+.fb-note.role-5 text,
+.fb-note.role-7 text,
+.fb-note.role-ext text,
+.kb-note.role-3 text,
+.kb-note.role-5 text,
+.kb-note.role-7 text,
+.kb-note.role-ext text,
+.cd-dot.role-3 text,
+.cd-dot.role-5 text,
+.cd-dot.role-7 text,
+.cd-dot.role-ext text {
+  fill: var(--role-text);
+}
+
+.role-legend {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.78rem;
+}
+
+.role-chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  color: var(--role-text);
+}
+
+.role-chip.role-R {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.role-chip.role-3 {
+  background: var(--role-3);
+}
+
+.role-chip.role-5 {
+  background: var(--role-5);
+}
+
+.role-chip.role-7 {
+  background: var(--role-7);
+}
+
+/* ---- 使い方ガイド ---- */
+.guide-button {
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.85rem;
+  min-height: 36px;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+.guide-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 18, 0.55);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+
+.guide-sheet {
+  background: var(--bg);
+  color: var(--text);
+  width: min(100%, 640px);
+  max-height: 88vh;
+  overflow-y: auto;
+  border-radius: 16px 16px 0 0;
+  padding: 14px 18px calc(18px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+@media (min-width: 700px) {
+  .guide-overlay {
+    align-items: center;
+  }
+  .guide-sheet {
+    border-radius: 16px;
+  }
+}
+
+.guide-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: -14px;
+  background: var(--bg);
+  padding: 6px 0;
+}
+
+.guide-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.guide-sheet h3 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  color: var(--accent);
+}
+
+.guide-sheet p,
+.guide-sheet li {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  margin: 0 0 6px;
+}
+
+.guide-sheet ul {
+  margin: 0 0 6px;
+  padding-left: 1.3em;
+}
+
+.guide-footer {
+  display: flex;
+  justify-content: center;
 }

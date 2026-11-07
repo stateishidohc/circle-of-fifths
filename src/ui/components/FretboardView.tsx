@@ -2,12 +2,16 @@ import type { PitchClass } from '../../core/pitch';
 import { midi } from '../../core/pitch';
 import type { Tuning } from '../../core/instrument/tuning';
 import type { PositionWindow } from '../../core/instrument/positions';
+import type { ChordRole } from '../../core/chord';
+import { roleClass } from '../toneRoles';
 
 export interface ToneHighlight {
   pc: PitchClass;
   /** 表示テキスト（音名または度数。表示モードは上流で決める） */
   text: string;
   isRoot: boolean;
+  /** コードトーン表示のときの役割（R/3/5/7…）。色分けに使う */
+  role?: ChordRole;
 }
 
 interface Props {
@@ -117,7 +121,7 @@ export function FretboardView({ tuning, highlights, maxFret, lefty, windows }: P
             return (
               <g
                 key={`${si}-${f}`}
-                className={`fb-note ${h.isRoot ? 'is-root' : ''}`}
+                className={`fb-note ${roleClass(h.role)} ${h.isRoot ? 'is-root' : ''}`}
                 opacity={inWindow(f) ? 1 : 0.16}
               >
                 <circle cx={noteX(f)} cy={y} r="10.5" />

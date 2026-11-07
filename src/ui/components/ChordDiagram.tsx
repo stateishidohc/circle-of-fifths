@@ -1,5 +1,7 @@
 import { chordTones } from '../../core/chord';
+import type { ChordRole } from '../../core/chord';
 import { pc } from '../../core/pitch';
+import { roleClass } from '../toneRoles';
 import type { Tuning } from '../../core/instrument/tuning';
 import type { Voicing } from '../../core/voicing/types';
 import { voicingShape } from '../../core/voicing/generator';
@@ -27,14 +29,18 @@ const TAG_LABELS: Record<string, string> = {
   drop3: 'ドロップ3',
   omit5: '5度省略',
   inversion: '転回形',
+  triad: 'トライアド',
+  'root-position': '基本形',
+  '1st-inversion': '第1転回形',
+  '2nd-inversion': '第2転回形',
 };
 
 /** 縦型コードダイアグラム（左=低音弦） */
 export function ChordDiagram({ voicing, tuning, selected, distance, onSelect }: Props) {
   const n = tuning.strings.length;
-  const labelByPc = new Map<number, { label: string; isRoot: boolean }>();
+  const labelByPc = new Map<number, { label: string; role: ChordRole }>();
   for (const t of chordTones(voicing.chord)) {
-    labelByPc.set(pc(t.note), { label: t.label, isRoot: t.role === 'R' });
+    labelByPc.set(pc(t.note), { label: t.label, role: t.role });
   }
 
   const fretted = voicing.positions.filter((p) => p.fret !== null && p.fret > 0);
@@ -115,7 +121,10 @@ export function ChordDiagram({ voicing, tuning, selected, distance, onSelect }: 
             (((tuning.strings[p.string - 1].pc + p.fret) % 12) + 12) % 12;
           const info = labelByPc.get(tonePc);
           return (
-            <g key={p.string} className={`cd-dot ${info?.isRoot ? 'is-root' : ''}`}>
+            <g
+              key={p.string}
+              className={`cd-dot ${roleClass(info?.role)} ${info?.role === 'R' ? 'is-root' : ''}`}
+            >
               <circle cx={cx} cy={fretY(p.fret)} r={7.5} />
               <text x={cx} y={fretY(p.fret)}>
                 {info?.label}
